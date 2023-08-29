@@ -6,7 +6,7 @@ export default function Navbar() {
     <header>
       <nav className="nav">
         <div className="nav__logo">
-          <Link to="../Landing_Page/LandingPage.html">
+          <Link to="/">
             StayHealthy
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ export default function Navbar() {
             <Link to="#">Reviews</Link>
           </li>
           <li className="link">
-            <Link to="../Sign_Up/Sign_Up.html">
+            <Link to="signup">
               <button type="button" className="btn1">
                 Sign Up
               </button>

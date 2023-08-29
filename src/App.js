@@ -1,17 +1,23 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Components/LandingPage/LandingPage";
-import Navbar from "./Components/Navbar/Navbar";
+import SignUp from "./Components/Sign_Up/Sign_Up"
+import Root from "./Page/Root";
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Layout />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
-  );
+    const routers = createBrowserRouter([
+        {
+            path: '/',
+            element: <Root />,
+            children: [
+                {index: true, element: <Layout />},
+                {
+                    path: 'signup',
+                    element: <SignUp />
+                }
+            ]
+        }
+    ])
+
+    return <RouterProvider router={routers} />;
 }
