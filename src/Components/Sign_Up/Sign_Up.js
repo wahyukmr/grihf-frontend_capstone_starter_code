@@ -23,15 +23,6 @@ export default function Signup() {
     const register = async (e) => {
         e.preventDefault();
 
-        // Phone number validation
-        const phonePattern = /^\d{10}$/;
-        if (!phonePattern.test(phone)) {
-            setShowerr("Phone number must be 10 digits.");
-            return;
-        } else {
-            setShowerr(null)
-        }
-
         // API Call
         const response = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
@@ -83,84 +74,85 @@ export default function Signup() {
                     </span>
                 </div>
                 <div className="signup-form">
-                <form method="POST" onSubmit={register}>
-                    <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        type="text"
-                        name="name"
-                        id="name"
-                        required
-                        className="form-control"
-                        placeholder="Enter your name"
-                        aria-describedby="helpId"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                        className="form-control"
-                        placeholder="Enter your email"
-                        aria-describedby="helpId"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input
-                        onChange={(e) => setPhone(e.target.value)}
-                        value={phone}
-                        type="tel"
-                        name="phone"
-                        id="phone"
-                        required
-                        className="form-control"
-                        placeholder="Enter your phone number"
-                        aria-describedby="helpId"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        name="password"
-                        type="password"
-                        id="password"
-                        required
-                        className="form-control"
-                        placeholder="Enter your password"
-                        aria-describedby="helpId"
-                    />
-                    </div>
-                    {showerr && (
-                        <div className="err" style={{ color: "red" }}>
-                        {showerr}
+                    <form method="POST" onSubmit={register}>
+                        <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                                type="text"
+                                name="name"
+                                id="name"
+                                required
+                                className="form-control"
+                                placeholder="Enter your name"
+                                aria-describedby="helpId"
+                            />
                         </div>
-                    )}
-                    <div className="btn-group">
-                    <button
-                        type="submit"
-                        className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
-                    >
-                        Submit
-                    </button>
-                    <button
-                        type="reset"
-                        onClick={resetHandler}
-                        className="btn btn-danger mb-2 waves-effect waves-light"
-                    >
-                        Reset
-                    </button>
-                    </div>
-                </form>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                type="email"
+                                name="email"
+                                required
+                                id="email"
+                                className="form-control"
+                                placeholder="Enter your email"
+                                aria-describedby="helpId"
+                            />
+                        {showerr && (
+                            <div className="err" style={{ color: "red" }}>{showerr}</div>
+                        )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone</label>
+                            <input
+                                onChange={(e) => setPhone(e.target.value)}
+                                value={phone}
+                                type="tel"
+                                name="phone"
+                                id="phone"
+                                required
+                                minLength="10"
+                                maxLength="10"
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                aria-describedby="helpId"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                name="password"
+                                type="password"
+                                id="password"
+                                required
+                                className="form-control"
+                                placeholder="Enter your password"
+                                aria-describedby="helpId"
+                            />
+                        </div>
+                        
+                        <div className="btn-group">
+                            <button
+                                type="submit"
+                                className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+                            >
+                                Submit
+                            </button>
+                            <button
+                                type="reset"
+                                onClick={resetHandler}
+                                className="btn btn-danger mb-2 waves-effect waves-light"
+                            >
+                                Reset
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
