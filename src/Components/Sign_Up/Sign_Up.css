@@ -75,8 +75,10 @@
 }
 
 .btn-group {
-  margin-top: 0.0001px;
-  margin-bottom: 20px;
+    margin-top: 10px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .btn {

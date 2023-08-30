@@ -9,9 +9,9 @@ export default function Login() {
           <h2>Login</h2>
         </div>
         <div className="login-text">
-          Are you a new member?
+          Are you a new member?{" "}
           <span>
-            <Link href="../Sign_Up/Sign_Up.html" style={{ color: "#2190ff" }}>
+            <Link to={signup} style={{ color: "#2190ff" }}>
               Sign Up Here
             </Link>
           </span>
@@ -20,7 +20,7 @@ export default function Login() {
         <div className="login-form">
           <form>
             <div className="form-group">
-              <label for="email">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 name="email"
@@ -32,7 +32,7 @@ export default function Login() {
               />
             </div>
             <div className="form-group">
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
