@@ -8,7 +8,7 @@ export default function Signup() {
   const [userEmail, setEmail] = useState("");
   const [userPhone, setPhone] = useState("");
   const [userPassword, setPassword] = useState("");
-  const [showerr, setShowerr] = useState(null);
+  const [showerr, setShowerr] = useState("");
 
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function Signup() {
     setEmail("");
     setPhone("");
     setPassword("");
-    setShowerr(null);
+    setShowerr("");
   };
 
   const register = async (e) => {
@@ -33,8 +33,8 @@ export default function Signup() {
         name: userName,
         email: userEmail,
         password: userPassword,
-        phone: userPhone,
-      }),
+        phone: userPhone
+      })
     });
 
     const json = await response.json();
@@ -51,6 +51,7 @@ export default function Signup() {
     } else {
       if (json.errors) {
         for (const error of json.errors) {
+            console.log(error)
           setShowerr(error.msg);
         }
       } else {
@@ -83,6 +84,7 @@ export default function Signup() {
                 type="text"
                 name="name"
                 id="name"
+                minLength="4"
                 required
                 className="signup-form-control"
                 placeholder="Enter your name"
@@ -132,6 +134,7 @@ export default function Signup() {
                 name="password"
                 type="password"
                 id="password"
+                minLength="8"
                 required
                 className="signup-form-control"
                 placeholder="Enter your password"

@@ -78,7 +78,7 @@
   font-weight: 500;
 }
 
-.nav__links li:nth-child(5) {
+.mr {
   margin-right: -1rem;
 }
 
@@ -162,12 +162,9 @@
   border: 2px solid #3685fb;
   background-color: white;
   color: black;
+  font-size: 1rem;
   border-radius: 50px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 3px;
+  padding: 8px 20px;
 }
 
 .btn2:hover {

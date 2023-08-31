@@ -8,11 +8,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (sessionStorage.getItem("auth-token")) {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
+
   const login = async (e) => {
     e.preventDefault();
     const res = await fetch(`${API_URL}/api/auth/login`, {
@@ -23,16 +26,17 @@ export default function Login() {
       body: JSON.stringify({
         // name: name,
         email: email,
-        password: password,
-      }),
+        password: password
+      })
     });
+
     const json = await res.json();
     if (json.authtoken) {
       sessionStorage.setItem("auth-token", json.authtoken);
 
       sessionStorage.setItem("email", email);
       navigate("/");
-      window.location.reload();
+    //   window.location.reload();
     } else {
       if (json.errors) {
         for (const error of json.errors) {
