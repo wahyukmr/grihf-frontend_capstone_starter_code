@@ -1,43 +1,89 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../../config";
 import "./Login.css";
 
 export default function Login() {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (sessionStorage.getItem("auth-token")) {
+      navigate("/");
+    }
+  }, []);
+  const login = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`${API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // name: name,
+        email: email,
+        password: password,
+      }),
+    });
+    const json = await res.json();
+    if (json.authtoken) {
+      sessionStorage.setItem("auth-token", json.authtoken);
+
+      sessionStorage.setItem("email", email);
+      navigate("/");
+      window.location.reload();
+    } else {
+      if (json.errors) {
+        for (const error of json.errors) {
+          alert(error.msg);
+        }
+      } else {
+        alert(json.error);
+      }
+    }
+  };
+
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="login-grid">
         <div className="login-text">
           <h2>Login</h2>
         </div>
-        <div className="login-text">
+        <div className="login-text1">
           Are you a new member?{" "}
           <span>
-            <Link to={signup} style={{ color: "#2190ff" }}>
-              Sign Up Here
+            <Link to="/signup" style={{ color: "#2190ff" }}>
+              Signup Here
             </Link>
           </span>
         </div>
-        <br />
+
         <div className="login-form">
-          <form>
-            <div className="form-group">
+          <form onSubmit={login}>
+            <div className="login-form-group">
               <label htmlFor="email">Email</label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 name="email"
                 id="email"
-                className="form-control"
+                className="login-form-control"
                 placeholder="Enter your email"
                 aria-describedby="helpId"
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="login-form-group">
               <label htmlFor="password">Password</label>
               <input
+                value={password}
+                onCanPlay={(e) => setPassword(e.target.value)}
                 type="password"
                 name="password"
                 id="password"
-                className="form-control"
+                className="login-form-control"
                 placeholder="Enter your password"
                 aria-describedby="helpId"
                 required
@@ -58,7 +104,7 @@ export default function Login() {
                 Reset
               </button>
             </div>
-            <br />
+
             <div className="login-text">Forgot Password?</div>
           </form>
         </div>
