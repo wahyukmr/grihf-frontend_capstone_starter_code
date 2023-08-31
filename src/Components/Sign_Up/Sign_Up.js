@@ -4,10 +4,10 @@ import { API_URL } from "../../config";
 import "./Sign_Up.css";
 
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setName] = useState("");
+  const [userEmail, setEmail] = useState("");
+  const [userPhone, setPhone] = useState("");
+  const [userPassword, setPassword] = useState("");
   const [showerr, setShowerr] = useState(null);
 
   const navigate = useNavigate();
@@ -30,10 +30,10 @@ export default function Signup() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        phone: userPhone,
       }),
     });
 
@@ -41,10 +41,10 @@ export default function Signup() {
 
     if (json.authtoken) {
       sessionStorage.setItem("auth-token", json.authtoken);
-      sessionStorage.setItem("name", name);
+      sessionStorage.setItem("name", userName);
       // phone and email
-      sessionStorage.setItem("phone", phone);
-      sessionStorage.setItem("email", email);
+      sessionStorage.setItem("phone", userPhone);
+      sessionStorage.setItem("email", userEmail);
       // Redirect to home page
       navigate("/"); //on directing to home page you need to give logic to change login and signup buttons with name of the user and logout button where you have implemented Navbar functionality
       window.location.reload();
@@ -79,7 +79,7 @@ export default function Signup() {
               <label htmlFor="name">Name</label>
               <input
                 onChange={(e) => setName(e.target.value)}
-                value={name}
+                value={userName}
                 type="text"
                 name="name"
                 id="name"
@@ -93,7 +93,7 @@ export default function Signup() {
               <label htmlFor="email">Email</label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
-                value={email}
+                value={userEmail}
                 type="email"
                 name="email"
                 required
@@ -112,7 +112,7 @@ export default function Signup() {
               <label htmlFor="phone">Phone</label>
               <input
                 onChange={(e) => setPhone(e.target.value)}
-                value={phone}
+                value={userPhone}
                 type="tel"
                 name="phone"
                 id="phone"
@@ -128,7 +128,7 @@ export default function Signup() {
               <label htmlFor="password">Password</label>
               <input
                 onChange={(e) => setPassword(e.target.value)}
-                value={password}
+                value={userPassword}
                 name="password"
                 type="password"
                 id="password"

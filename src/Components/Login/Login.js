@@ -79,7 +79,7 @@ export default function Login() {
               <label htmlFor="password">Password</label>
               <input
                 value={password}
-                onCanPlay={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 name="password"
                 id="password"
