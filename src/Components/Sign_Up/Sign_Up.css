@@ -5,13 +5,6 @@
   margin-top: 10%;
   overflow: hidden;
 }
-.password-visibility {
-  position: relative;
-  top: -39px;
-  left: 92%;
-  cursor: pointer;
-  font-size: 17px;
-}
 
 .signup-grid {
   display: grid;
@@ -54,12 +47,24 @@
   font-weight: bold;
 }
 
+.password-input-wrapper {
+  position: relative;
+}
+
 .signup-form-control {
   width: 95%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .err {

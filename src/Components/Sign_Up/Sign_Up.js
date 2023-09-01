@@ -9,6 +9,7 @@ export default function Signup() {
   const [userPhone, setPhone] = useState("");
   const [errorNumber, setErrorNumber] = useState("")
   const [userPassword, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
   const [showerr, setShowerr] = useState("");
 
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ export default function Signup() {
   const validatePhoneNumber = function (phone) {
     const phoneNumberPattern = /^\d{10}$/;
     return phoneNumberPattern.test(phone);
+  }
+  const togglePasswordVisibility = function () {
+    setShowPassword(!showPassword)
   }
 
   const register = async () => {
@@ -102,6 +106,20 @@ export default function Signup() {
         <div className="signup-form">
           <form method="POST" onSubmit={submitHandler}>
             <div className="signup-form-group">
+                <label htmlFor="role">Role</label>
+                <select
+                    name="password"
+                    id="role"
+                    defaultValue="Select role"
+                    required
+                    className="signup-form-control"
+                >
+                    <option disabled>Select role</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Patient">Patient</option>
+                </select>
+            </div>
+            <div className="signup-form-group">
               <label htmlFor="name">Name</label>
               <input
                 onChange={(e) => setName(e.target.value)}
@@ -158,18 +176,21 @@ export default function Signup() {
             </div>
             <div className="signup-form-group">
               <label htmlFor="password">Password</label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                value={userPassword}
-                name="password"
-                type="password"
-                id="password"
-                minLength="8"
-                required
-                className="signup-form-control"
-                placeholder="Enter your password"
-                aria-describedby="helpId"
-              />
+              <div className="password-input-wrapper">
+                <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={userPassword}
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    minLength="8"
+                    required
+                    className="signup-form-control"
+                    placeholder="Enter your password"
+                    aria-describedby="helpId"
+                />
+                <span className="password-icon" style={{marginRight: "30px"}} onClick={togglePasswordVisibility}>{showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}</span>
+              </div>
             </div>
 
             <div className="btn-group">

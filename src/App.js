@@ -4,6 +4,7 @@ import Layout from "./Components/LandingPage/LandingPage";
 import SignUp from "./Components/Sign_Up/Sign_Up"
 import Root from "./Page/Root";
 import Login from "./Components/Login/Login";
+import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation"
 
 export default function App() {
     const routers = createBrowserRouter([
@@ -19,6 +20,10 @@ export default function App() {
                 {
                     path: 'login',
                     element: <Login />
+                },
+                {
+                    path: 'instant-consultation',
+                    element: <InstantConsultation />
                 }
             ]
         }

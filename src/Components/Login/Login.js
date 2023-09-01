@@ -5,12 +5,16 @@ import "./Login.css";
 
 export default function Login() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState("")
   const [email, setEmail] = useState("");
   const [showerr, setShowerr] = useState("");
 
   const validateEmail = function (email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
+  }
+  const togglePasswordVisibility = function () {
+    setShowPassword(!showPassword)
   }
 
   const navigate = useNavigate();
@@ -97,17 +101,22 @@ export default function Login() {
               )}
             </div>
             <div className="login-form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                name="password"
-                id="password"
-                className="login-form-control"
-                placeholder="Enter your password"
-                aria-describedby="helpId"
-                required
-              />
+                <label htmlFor="password">Password</label>
+                <div className="password-input-wrapper">
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        minLength="8"
+                        required
+                        className="login-form-control"
+                        placeholder="Enter your password"
+                        aria-describedby="helpId"
+                    />
+                    <span className="password-icon" onClick={togglePasswordVisibility}>{showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}</span>
+                </div>
             </div>
 
             <div className="btn-group">
