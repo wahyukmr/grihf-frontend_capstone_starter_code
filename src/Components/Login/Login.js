@@ -6,6 +6,12 @@ import "./Login.css";
 export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [showerr, setShowerr] = useState("");
+
+  const validateEmail = function (email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  }
 
   const navigate = useNavigate();
 
@@ -16,15 +22,13 @@ export default function Login() {
     // eslint-disable-next-line
   }, []);
 
-  const login = async (e) => {
-    e.preventDefault();
+  const login = async () => {
     const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // name: name,
         email: email,
         password: password
       })
@@ -36,17 +40,26 @@ export default function Login() {
 
       sessionStorage.setItem("email", email);
       navigate("/");
-    //   window.location.reload();
+      window.location.reload();
     } else {
       if (json.errors) {
         for (const error of json.errors) {
-          alert(error.msg);
+          setShowerr(error.msg);
         }
       } else {
-        alert(json.error);
+        setShowerr(json.error);
       }
     }
   };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      setShowerr("Please Enter a Valid Email");
+      return;
+    }
+    login();
+  }
 
   return (
     <div className="login-container">
@@ -64,11 +77,10 @@ export default function Login() {
         </div>
 
         <div className="login-form">
-          <form onSubmit={login}>
+          <form onSubmit={submitHandler}>
             <div className="login-form-group">
               <label htmlFor="email">Email</label>
               <input
-                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 name="email"
@@ -78,11 +90,15 @@ export default function Login() {
                 aria-describedby="helpId"
                 required
               />
+              {showerr && (
+                <div className="err">
+                  {showerr}
+                </div>
+              )}
             </div>
             <div className="login-form-group">
               <label htmlFor="password">Password</label>
               <input
-                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 name="password"

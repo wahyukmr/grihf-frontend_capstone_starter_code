@@ -62,6 +62,12 @@
   border-radius: 4px;
 }
 
+.err {
+    font-size: 0.8rem;
+    color: red;
+    margin-top: 5px;
+}
+
 .btn-group {
   margin: 40px 0;
   display: flex;

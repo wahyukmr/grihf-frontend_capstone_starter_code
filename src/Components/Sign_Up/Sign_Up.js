@@ -7,22 +7,22 @@ export default function Signup() {
   const [userName, setName] = useState("");
   const [userEmail, setEmail] = useState("");
   const [userPhone, setPhone] = useState("");
+  const [errorNumber, setErrorNumber] = useState("")
   const [userPassword, setPassword] = useState("");
   const [showerr, setShowerr] = useState("");
 
   const navigate = useNavigate();
 
-  const resetHandler = function () {
-    setName("");
-    setEmail("");
-    setPhone("");
-    setPassword("");
-    setShowerr("");
-  };
+  const validateEmail = function (email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  }
+  const validatePhoneNumber = function (phone) {
+    const phoneNumberPattern = /^\d{10}$/;
+    return phoneNumberPattern.test(phone);
+  }
 
-  const register = async (e) => {
-    e.preventDefault();
-
+  const register = async () => {
     // API Call
     const response = await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
@@ -51,13 +51,38 @@ export default function Signup() {
     } else {
       if (json.errors) {
         for (const error of json.errors) {
-            console.log(error)
-          setShowerr(error.msg);
+        setShowerr(error.msg);
         }
       } else {
         setShowerr(json.error);
       }
     }
+  };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+
+    if (!validateEmail(userEmail)) {
+      setShowerr("Please Enter a Valid Email");
+      return;
+    }
+  
+    if (!validatePhoneNumber(userPhone)) {
+      setErrorNumber("Phone Number Should Be 10 Digits.");
+      return;
+    }
+  
+    register();
+  }
+  
+
+  const resetHandler = function () {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setErrorNumber("")
+    setPassword("");
+    setShowerr("");
   };
 
   return (
@@ -75,7 +100,7 @@ export default function Signup() {
           </span>
         </div>
         <div className="signup-form">
-          <form method="POST" onSubmit={register}>
+          <form method="POST" onSubmit={submitHandler}>
             <div className="signup-form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -105,7 +130,7 @@ export default function Signup() {
                 aria-describedby="helpId"
               />
               {showerr && (
-                <div className="err" style={{ color: "red" }}>
+                <div className="err">
                   {showerr}
                 </div>
               )}
@@ -125,6 +150,11 @@ export default function Signup() {
                 placeholder="Enter your phone number"
                 aria-describedby="helpId"
               />
+              {errorNumber && (
+                <div className="err">
+                  {errorNumber}
+                </div>
+              )}
             </div>
             <div className="signup-form-group">
               <label htmlFor="password">Password</label>
