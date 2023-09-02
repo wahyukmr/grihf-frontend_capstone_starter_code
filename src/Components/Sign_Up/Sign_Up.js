@@ -108,7 +108,7 @@ export default function Signup() {
             <div className="signup-form-group">
                 <label htmlFor="role">Role</label>
                 <select
-                    name="password"
+                    name="role"
                     id="role"
                     defaultValue="Select role"
                     required

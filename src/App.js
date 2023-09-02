@@ -4,30 +4,30 @@ import Layout from "./Components/LandingPage/LandingPage";
 import SignUp from "./Components/Sign_Up/Sign_Up"
 import Root from "./Page/Root";
 import Login from "./Components/Login/Login";
-import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation"
+import BookingConsultation from "./Components/BookingConsultation"
 
 export default function App() {
-    const routers = createBrowserRouter([
+  const routers = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      children: [
+        {index: true, element: <Layout />},
         {
-            path: '/',
-            element: <Root />,
-            children: [
-                {index: true, element: <Layout />},
-                {
-                    path: 'signup',
-                    element: <SignUp />
-                },
-                {
-                    path: 'login',
-                    element: <Login />
-                },
-                {
-                    path: 'instant-consultation',
-                    element: <InstantConsultation />
-                }
-            ]
+          path: 'signup',
+          element: <SignUp />
+        },
+        {
+          path: 'login',
+          element: <Login />
+        },
+        {
+          path: 'instant-consultation',
+          element: <BookingConsultation />
         }
-    ])
+      ]
+    }
+  ])
 
-    return <RouterProvider router={routers} />;
+  return <RouterProvider router={routers} />
 }
