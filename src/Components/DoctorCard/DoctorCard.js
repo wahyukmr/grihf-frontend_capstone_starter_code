@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { v4 as uuidv4 } from "uuid";
@@ -9,9 +9,9 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
   const [showModal, setShowModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
-  // const handleBooking = () => {
-  //   setShowModal(true);
-  // };
+  const handleBooking = () => {
+    setShowModal(true);
+  };
 
   const handleCancel = (appointmentId) => {
     const updatedAppointments = appointments.filter(
@@ -19,6 +19,8 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
     );
     setAppointments(updatedAppointments);
   };
+
+//   console.log(appointments)
 
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
@@ -28,6 +30,15 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
     setShowModal(false);
+
+    const bookingData = {
+        name,
+        speciality,
+        experience,
+        ratings,
+        user: appointments[0],
+    }
+    localStorage.setItem('doctorData', bookingData)
   };
 
   return (
@@ -59,26 +70,24 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
       </div>
 
       <div className="doctor-card-options-container">
+        <button
+            className={`book-appointment-btn ${
+            appointments.length > 0 ? "cancel-appointment" : ""
+            }`}
+            onClick={handleBooking}
+        >
+            {appointments.length > 0 ? (
+            <div>Cancel Appointment</div>
+            ) : (
+            <div>Book Appointment</div>
+            )}
+            <div>No Booking Fee</div>
+        </button>
         <Popup
           style={{ backgroundColor: "#FFFFFF" }}
-          trigger={
-            <button
-              className={`book-appointment-btn ${
-                appointments.length > 0 ? "cancel-appointment" : ""
-              }`}
-            >
-              {appointments.length > 0 ? (
-                <div>Cancel Appointment</div>
-              ) : (
-                <div>Book Appointment</div>
-              )}
-              <div>No Booking Fee</div>
-            </button>
-          }
           modal
-          on="click"
           open={showModal}
-          // onClose={() => setShowModal(false)}
+          onClose={() => setShowModal(false)}
         >
           {
             <div

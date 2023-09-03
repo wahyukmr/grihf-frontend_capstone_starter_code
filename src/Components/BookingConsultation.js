@@ -45,7 +45,6 @@ const BookingConsultation = () => {
 
       setFilteredDoctors(filtered);
       setIsSearched(true);
-      // window.location.reload()
     }
   };
 

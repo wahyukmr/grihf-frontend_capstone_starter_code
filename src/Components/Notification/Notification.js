@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
+import Popup from "reactjs-popup";
 
 const Notification = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+//   const [username, setUsername] = useState("");
   const [doctorData, setDoctorData] = useState(null);
   const [appointmentData, setAppointmentData] = useState(null);
 
   useEffect(() => {
-    const storedUsername = sessionStorage.getItem("email");
+    // const storedUsername = sessionStorage.getItem("email");
     const storedDoctorData = JSON.parse(localStorage.getItem("doctorData"));
     const storedAppointmentData = JSON.parse(
-      localStorage.getItem(storedDoctorData?.name)
+      localStorage.getItem(storedDoctorData?.user)
     );
 
     if (storedUsername) {
       setIsLoggedIn(true);
-      setUsername(storedUsername);
+    //   setUsername(storedUsername);
     }
 
     if (storedDoctorData) {
@@ -27,8 +28,10 @@ const Notification = () => {
     }
   }, []);
 
+  console.log(appointmentData)
+
   return (
-    <div>
+    <Popup open={isLoggedIn && appointmentData} >
       {isLoggedIn && appointmentData && (
         <>
           <div className="appointment-card">
@@ -41,7 +44,7 @@ const Notification = () => {
           </div>
         </>
       )}
-    </div>
+    </Popup>
   );
 };
 
