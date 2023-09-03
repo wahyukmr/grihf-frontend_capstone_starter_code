@@ -8,8 +8,8 @@ export default function Root() {
             <Navbar/>
             <main>
                 <Outlet />
-                <Notification />
             </main>
+            <Notification />
         </>
     )
 }
