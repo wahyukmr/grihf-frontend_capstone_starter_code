@@ -27,6 +27,7 @@ export default function Navbar() {
     sessionStorage.removeItem("phone");
     // remove email phone
     localStorage.removeItem("doctorData");
+    localStorage.removeItem("appointmentData")
     setIsLoggedIn(false);
     // setUsername("");
 

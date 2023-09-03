@@ -20,8 +20,6 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
     setAppointments(updatedAppointments);
   };
 
-//   console.log(appointments)
-
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
       id: uuidv4(),
@@ -31,14 +29,16 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
     setAppointments(updatedAppointments);
     setShowModal(false);
 
-    const bookingData = {
+    const doctorData = {
         name,
         speciality,
         experience,
-        ratings,
-        user: appointments[0],
+        ratings
     }
-    localStorage.setItem('doctorData', bookingData)
+    localStorage.setItem('doctorData', JSON.stringify(doctorData));
+    localStorage.setItem('appointmentData', JSON.stringify(newAppointment));
+
+    window.dispatchEvent(new Event("storage"));
   };
 
   return (
