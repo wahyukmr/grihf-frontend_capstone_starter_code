@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { v4 as uuidv4 } from "uuid";
-import AppointmentForm from "../AppointmentForm/AppointmentForm";
-import "./DoctorCard.css";
+import AppointmentFormIC from "../AppointmentFormIC/AppointmentFormIC";
+import "./DoctorCardIC.css";
 
-const DoctorCard = ({ name, speciality, experience, ratings }) => {
+const DoctorCardIC = ({
+  name,
+  speciality,
+  experience,
+  ratings,
+  profilePic,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
-  // const handleBooking = () => {
-  //   setShowModal(true);
-  // };
+  const handleBooking = () => {
+    setShowModal(true);
+  };
 
   const handleCancel = (appointmentId) => {
     const updatedAppointments = appointments.filter(
@@ -39,7 +45,7 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
             width="46"
             height="46"
             fill="currentColor"
-            className="bi bi-person-fill"
+            class="bi bi-person-fill"
             viewBox="0 0 16 16"
           >
             {" "}
@@ -76,11 +82,10 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
             </button>
           }
           modal
-          on="click"
           open={showModal}
-          // onClose={() => setShowModal(false)}
+          onClose={() => setShowModal(false)}
         >
-          {
+          {(close) => (
             <div
               className="doctorbg"
               style={{ height: "100vh", overflow: "scroll" }}
@@ -92,7 +97,7 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
                     width="46"
                     height="46"
                     fill="currentColor"
-                    className="bi bi-person-fill img"
+                    class="bi bi-person-fill img"
                     viewBox="0 0 16 16"
                   >
                     {" "}
@@ -133,14 +138,18 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
                   ))}
                 </>
               ) : (
-                <AppointmentForm onSubmit={handleFormSubmit} />
+                <AppointmentFormIC
+                  doctorName={name}
+                  doctorSpeciality={speciality}
+                  onSubmit={handleFormSubmit}
+                />
               )}
             </div>
-          }
+          )}
         </Popup>
       </div>
     </div>
   );
 };
 
-export default DoctorCard;
+export default DoctorCardIC;

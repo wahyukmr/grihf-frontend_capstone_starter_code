@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import DoctorCard from "../Components/DoctorCard/DoctorCard";
-import FindDoctorSearch from "../Components/FindDoctorSearch/FindDoctorSearch";
-import "./BookingConsultation.css";
+import DoctorCardIC from "./DoctorCardIC/DoctorCardIC";
+import FindDoctorSearchIC from "./FindDoctorSearchIC/FindDoctorSearchIC";
+import "./InstantConsultation.css";
 
-const BookingConsultation = () => {
+const InstantConsultation = () => {
   const [searchParams] = useSearchParams();
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
@@ -15,6 +15,7 @@ const BookingConsultation = () => {
       .then((res) => res.json())
       .then((data) => {
         if (searchParams.get("speciality")) {
+          // window.reload()
           const filtered = data.filter(
             (doctor) =>
               doctor.speciality.toLowerCase() ===
@@ -24,6 +25,7 @@ const BookingConsultation = () => {
           setFilteredDoctors(filtered);
 
           setIsSearched(true);
+          window.reload();
         } else {
           setFilteredDoctors([]);
           setIsSearched(false);
@@ -32,7 +34,6 @@ const BookingConsultation = () => {
       })
       .catch((err) => console.log(err));
   };
-
   const handleSearch = (searchText) => {
     if (searchText === "") {
       setFilteredDoctors([]);
@@ -45,23 +46,22 @@ const BookingConsultation = () => {
 
       setFilteredDoctors(filtered);
       setIsSearched(true);
-      // window.location.reload()
+      window.location.reload();
     }
   };
-
   const navigate = useNavigate();
   useEffect(() => {
     getDoctorsDetails();
-    const authtoken = sessionStorage.getItem("auth-token");
-    if (!authtoken) {
-      navigate("/login");
-    }
+    // const authtoken = sessionStorage.getItem("auth-token");
+    // if (!authtoken) {
+    //     navigate("/login");
+    // }
   }, [searchParams]);
 
   return (
     <center>
       <div className="searchpage-container">
-        <FindDoctorSearch onSearch={handleSearch} />
+        <FindDoctorSearchIC onSearch={handleSearch} />
         <div className="search-results-container">
           {isSearched ? (
             <center>
@@ -75,7 +75,7 @@ const BookingConsultation = () => {
               </h3>
               {filteredDoctors.length > 0 ? (
                 filteredDoctors.map((doctor) => (
-                  <DoctorCard
+                  <DoctorCardIC
                     className="doctorcard"
                     {...doctor}
                     key={doctor.name}
@@ -94,4 +94,4 @@ const BookingConsultation = () => {
   );
 };
 
-export default BookingConsultation;
+export default InstantConsultation;

@@ -7,9 +7,9 @@ export default function Signup() {
   const [userName, setName] = useState("");
   const [userEmail, setEmail] = useState("");
   const [userPhone, setPhone] = useState("");
-  const [errorNumber, setErrorNumber] = useState("")
+  const [errorNumber, setErrorNumber] = useState("");
   const [userPassword, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [showerr, setShowerr] = useState("");
 
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ export default function Signup() {
   const validateEmail = function (email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
-  }
+  };
   const validatePhoneNumber = function (phone) {
     const phoneNumberPattern = /^\d{10}$/;
     return phoneNumberPattern.test(phone);
-  }
+  };
   const togglePasswordVisibility = function () {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const register = async () => {
     // API Call
@@ -37,8 +37,8 @@ export default function Signup() {
         name: userName,
         email: userEmail,
         password: userPassword,
-        phone: userPhone
-      })
+        phone: userPhone,
+      }),
     });
 
     const json = await response.json();
@@ -55,7 +55,7 @@ export default function Signup() {
     } else {
       if (json.errors) {
         for (const error of json.errors) {
-        setShowerr(error.msg);
+          setShowerr(error.msg);
         }
       } else {
         setShowerr(json.error);
@@ -70,21 +70,20 @@ export default function Signup() {
       setShowerr("Please Enter a Valid Email");
       return;
     }
-  
+
     if (!validatePhoneNumber(userPhone)) {
       setErrorNumber("Phone Number Should Be 10 Digits.");
       return;
     }
-  
+
     register();
-  }
-  
+  };
 
   const resetHandler = function () {
     setName("");
     setEmail("");
     setPhone("");
-    setErrorNumber("")
+    setErrorNumber("");
     setPassword("");
     setShowerr("");
   };
@@ -106,18 +105,18 @@ export default function Signup() {
         <div className="signup-form">
           <form method="POST" onSubmit={submitHandler}>
             <div className="signup-form-group">
-                <label htmlFor="role">Role</label>
-                <select
-                    name="role"
-                    id="role"
-                    defaultValue="Select role"
-                    required
-                    className="signup-form-control"
-                >
-                    <option disabled>Select role</option>
-                    <option value="Doctor">Doctor</option>
-                    <option value="Patient">Patient</option>
-                </select>
+              <label htmlFor="role">Role</label>
+              <select
+                name="role"
+                id="role"
+                defaultValue="Select role"
+                required
+                className="signup-form-control"
+              >
+                <option disabled>Select role</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Patient">Patient</option>
+              </select>
             </div>
             <div className="signup-form-group">
               <label htmlFor="name">Name</label>
@@ -147,11 +146,7 @@ export default function Signup() {
                 placeholder="Enter your email"
                 aria-describedby="helpId"
               />
-              {showerr && (
-                <div className="err">
-                  {showerr}
-                </div>
-              )}
+              {showerr && <div className="err">{showerr}</div>}
             </div>
             <div className="signup-form-group">
               <label htmlFor="phone">Phone</label>
@@ -168,28 +163,34 @@ export default function Signup() {
                 placeholder="Enter your phone number"
                 aria-describedby="helpId"
               />
-              {errorNumber && (
-                <div className="err">
-                  {errorNumber}
-                </div>
-              )}
+              {errorNumber && <div className="err">{errorNumber}</div>}
             </div>
             <div className="signup-form-group">
               <label htmlFor="password">Password</label>
               <div className="password-input-wrapper">
                 <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={userPassword}
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    minLength="8"
-                    required
-                    className="signup-form-control"
-                    placeholder="Enter your password"
-                    aria-describedby="helpId"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={userPassword}
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  minLength="8"
+                  required
+                  className="signup-form-control"
+                  placeholder="Enter your password"
+                  aria-describedby="helpId"
                 />
-                <span className="password-icon" style={{marginRight: "30px"}} onClick={togglePasswordVisibility}>{showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}</span>
+                <span
+                  className="password-icon"
+                  style={{ marginRight: "30px" }}
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <i className="fa fa-eye"></i>
+                  ) : (
+                    <i className="fa fa-eye-slash"></i>
+                  )}
+                </span>
               </div>
             </div>
 

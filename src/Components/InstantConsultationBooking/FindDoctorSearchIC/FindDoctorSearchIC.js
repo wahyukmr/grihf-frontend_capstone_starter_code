@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./FindDoctorSearch.css";
+import "./FindDoctorSearchIC.css";
 
 const initSpeciality = [
   "Dentist",
@@ -12,7 +12,7 @@ const initSpeciality = [
   "Ayurveda",
 ];
 
-const FindDoctorSearch = () => {
+const FindDoctorSearchIC = () => {
   const [doctorResultHidden, setDoctorResultHidden] = useState(true);
   const [searchDoctor, setSearchDoctor] = useState("");
   const [specialities] = useState(initSpeciality);
@@ -87,4 +87,4 @@ const FindDoctorSearch = () => {
   );
 };
 
-export default FindDoctorSearch;
+export default FindDoctorSearchIC;

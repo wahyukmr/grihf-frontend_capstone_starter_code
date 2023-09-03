@@ -5,17 +5,17 @@ import "./Login.css";
 
 export default function Login() {
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState("")
+  const [showPassword, setShowPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showerr, setShowerr] = useState("");
 
   const validateEmail = function (email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
-  }
+  };
   const togglePasswordVisibility = function () {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const navigate = useNavigate();
 
@@ -34,8 +34,8 @@ export default function Login() {
       },
       body: JSON.stringify({
         email: email,
-        password: password
-      })
+        password: password,
+      }),
     });
 
     const json = await res.json();
@@ -63,7 +63,7 @@ export default function Login() {
       return;
     }
     login();
-  }
+  };
 
   return (
     <div className="login-container">
@@ -94,29 +94,34 @@ export default function Login() {
                 aria-describedby="helpId"
                 required
               />
-              {showerr && (
-                <div className="err">
-                  {showerr}
-                </div>
-              )}
+              {showerr && <div className="err">{showerr}</div>}
             </div>
             <div className="login-form-group">
-                <label htmlFor="password">Password</label>
-                <div className="password-input-wrapper">
-                    <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        name="password"
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        minLength="8"
-                        required
-                        className="login-form-control"
-                        placeholder="Enter your password"
-                        aria-describedby="helpId"
-                    />
-                    <span className="password-icon" onClick={togglePasswordVisibility}>{showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i>}</span>
-                </div>
+              <label htmlFor="password">Password</label>
+              <div className="password-input-wrapper">
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  minLength="8"
+                  required
+                  className="login-form-control"
+                  placeholder="Enter your password"
+                  aria-describedby="helpId"
+                />
+                <span
+                  className="password-icon"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <i className="fa fa-eye"></i>
+                  ) : (
+                    <i className="fa fa-eye-slash"></i>
+                  )}
+                </span>
+              </div>
             </div>
 
             <div className="btn-group">
