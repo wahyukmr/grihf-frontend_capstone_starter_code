@@ -93,8 +93,6 @@ function ReviewForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formData);
-
     setFormData({ name: '', review: '', rating: 0 });
 
     if (formData.name && formData.review && formData.rating > 0) {
@@ -102,10 +100,11 @@ function ReviewForm() {
     } else {
       setShowWarning(true);
     }
+
+    setShowForm(false)
   };
 
   const handleStarClick = (starIndex) => {
-    // Mengatur nilai rating saat pengguna mengklik bintang
     setFormData({ ...formData, rating: starIndex + 1 });
   };
 
@@ -125,7 +124,7 @@ function ReviewForm() {
 
   return (
     <div>
-      <Button variant="primary" size='sm' onClick={handleButtonClick}>Click Here</Button>
+      <Button variant="primary" disabled size='sm' onClick={handleButtonClick}>Click Here</Button>
 
       <Popup
         style={{ backgroundColor: "#FFFFFF" }}
@@ -136,17 +135,19 @@ function ReviewForm() {
         <form onSubmit={handleSubmit}>
           <h2>Give Your Review</h2>
           {showWarning && <p className="warning">Please fill out all fields.</p>}
-          <div>
+          <div style={{ marginBottom: "20px" }}>
             <label htmlFor="name">Name:</label>
             <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
           </div>
-          <div>
+          <div style={{ marginBottom: "20px" }}>
             <label htmlFor="review">Review:</label>
             <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
           </div>
-          <div>
+          <div style={{ marginBottom: "20px" }}>
             <label>Rating:</label>
-            {renderStars()}
+            <div className="rating">
+              {renderStars()}
+            </div>
           </div>
           <Button variant="primary" type="submit">Submit</Button>
         </form>

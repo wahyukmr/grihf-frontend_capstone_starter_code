@@ -45,7 +45,7 @@ const DoctorCardIC = ({
             width="46"
             height="46"
             fill="currentColor"
-            class="bi bi-person-fill"
+            className="bi bi-person-fill"
             viewBox="0 0 16 16"
           >
             {" "}
@@ -97,7 +97,7 @@ const DoctorCardIC = ({
                     width="46"
                     height="46"
                     fill="currentColor"
-                    class="bi bi-person-fill img"
+                    className="bi bi-person-fill img"
                     viewBox="0 0 16 16"
                   >
                     {" "}

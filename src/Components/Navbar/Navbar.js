@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import ProfileCard from '../ProfileCard/ProfileCard'
 
 export default function Navbar() {
   const [click, setClick] = useState(false);
@@ -8,7 +9,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  // const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,9 +42,11 @@ export default function Navbar() {
     setEmail("");
     navigate("/");
   };
-  // const handleDropdown = () => {
-  //     setShowDropdown(!showDropdown);
-  // }
+
+  const handleDropdown = () => {
+      setShowDropdown(!showDropdown);
+  }
+  
   useEffect(() => {
     const storedemail = sessionStorage.getItem("email");
 
@@ -82,7 +85,10 @@ export default function Navbar() {
           </li>
           {isLoggedIn ? (
             <>
-              <li className="link">{`Welcome, ${getUserName()}`}</li>
+              <li className="link welcome-user">
+                {`Welcome, ${getUserName()}`}
+                <ProfileCard />
+              </li>
               <li className="link">
                 <button type="button" className="btn2" onClick={handleLogout}>
                   Logout
