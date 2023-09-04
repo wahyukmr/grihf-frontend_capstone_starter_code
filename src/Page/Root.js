@@ -8,10 +8,8 @@ export default function Root() {
       <Navbar />
       <main>
         <Outlet />
-      </main>
-      <footer>
         <Notification />
-      </footer>
+      </main>
     </>
   );
 }

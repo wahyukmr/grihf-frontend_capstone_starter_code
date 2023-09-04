@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Popup from "reactjs-popup";
 import './Notification.css'
 
 const Notification = () => {
@@ -9,17 +8,15 @@ const Notification = () => {
   const [appointmentData, setAppointmentData] = useState(null);
 
   const handleStorageChange = (e) => {
-      const storedDoctorData = JSON.parse(localStorage.getItem("doctorData"));
-      if (storedDoctorData) {
-        setDoctorData(storedDoctorData);
-      }
+    const storedDoctorData = JSON.parse(localStorage.getItem("doctorData"));
+    if (storedDoctorData) {
+      setDoctorData(storedDoctorData);
+    }
 
-      const storedAppointmentData = JSON.parse(
-        localStorage.getItem("appointmentData")
-      );
-      if (storedAppointmentData) {
-        setAppointmentData(storedAppointmentData);
-      }
+    const storedAppointmentData = JSON.parse(
+      localStorage.getItem("appointmentData")
+    );
+    setAppointmentData(storedAppointmentData);
   };
 
   useEffect(() => {
@@ -38,37 +35,36 @@ const Notification = () => {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-  
-  console.log(isLoggedIn)
-  console.log(appointmentData)
 
   return (
-    <Popup open={isLoggedIn && appointmentData} position='bottom right' modal>
-      <div className="appointment-card" style={{height: "80vh"}}>
-        <div className="appointment-card__content">
-          <h3 className="appointment-card__title">Appointment Details</h3>
-          <p className="appointment-card__message">
-            <strong>Doctor:</strong> {doctorData?.name}
-          </p>
-          <p className="appointment-card__message">
-            <strong>Speciality:</strong> {doctorData?.speciality}
-          </p>
-          <p className="appointment-card__message">
-            <strong>Name:</strong> {appointmentData?.name}
-          </p>
-          <p className="appointment-card__message">
-            <strong>Phone Number:</strong> {appointmentData?.phoneNumber}
-          </p>
-          <p className="appointment-card__message">
-            <strong>Date of Appointment:</strong> {appointmentData?.date}
-          </p>
-          <p className="appointment-card__message">
-            <strong>Time Slot:</strong> {appointmentData?.selectedSlot}
-          </p>
+    <>
+      {isLoggedIn && appointmentData && (
+        <div className="appointment-card">
+          <div className="appointment-card__content">
+            <h3 className="appointment-card__title">Appointment Details</h3>
+            <p className="appointment-card__message">
+              <strong>Doctor:</strong> {doctorData?.name}
+            </p>
+            <p className="appointment-card__message">
+              <strong>Speciality:</strong> {doctorData?.speciality}
+            </p>
+            <p className="appointment-card__message">
+              <strong>Name:</strong> {appointmentData?.name}
+            </p>
+            <p className="appointment-card__message">
+              <strong>Phone Number:</strong> {appointmentData?.phoneNumber}
+            </p>
+            <p className="appointment-card__message">
+              <strong>Date of Appointment:</strong> {appointmentData?.date}
+            </p>
+            <p className="appointment-card__message">
+              <strong>Time Slot:</strong> {appointmentData?.selectedSlot}
+            </p>
+          </div>
         </div>
-      </div>
-    </Popup>
-  );
+      )}
+    </>
+  )  
 };
 
 export default Notification;

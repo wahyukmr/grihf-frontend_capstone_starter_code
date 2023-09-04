@@ -18,6 +18,12 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
       (appointment) => appointment.id !== appointmentId
     );
     setAppointments(updatedAppointments);
+
+    // Hapus data appointment dari localStorage
+    localStorage.removeItem('appointmentData');
+
+    // Memicu perubahan di komponen Notification dengan event storage
+    window.dispatchEvent(new Event("storage"));
   };
 
   const handleFormSubmit = (appointmentData) => {
@@ -35,6 +41,7 @@ const DoctorCard = ({ name, speciality, experience, ratings }) => {
         experience,
         ratings
     }
+
     localStorage.setItem('doctorData', JSON.stringify(doctorData));
     localStorage.setItem('appointmentData', JSON.stringify(newAppointment));
 
