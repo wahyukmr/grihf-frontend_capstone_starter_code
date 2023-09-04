@@ -1,0 +1,8 @@
+.table {
+    max-width: 900px;
+    margin: auto;
+    color: #414146;
+    position: static;
+    width: 100%;
+    margin-top: 15%;
+}

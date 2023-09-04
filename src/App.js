@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BookingConsultation from "./Components/BookingConsultation";
+import ReviewForm from "./Components/ReviewForm/ReviewForm"
 import Layout from "./Components/LandingPage/LandingPage";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Sign_Up/Sign_Up";
@@ -24,6 +25,10 @@ export default function App() {
         {
           path: "instant-consultation",
           element: <BookingConsultation />,
+        },
+        {
+          path: "reviews",
+          element: <ReviewForm />
         },
       ],
     },
