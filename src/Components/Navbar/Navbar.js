@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import ProfileCard from '../ProfileCard/ProfileCard'
 
 export default function Navbar() {
   const [click, setClick] = useState(false);
@@ -46,7 +45,7 @@ export default function Navbar() {
   const handleDropdown = () => {
       setShowDropdown(!showDropdown);
   }
-  
+
   useEffect(() => {
     const storedemail = sessionStorage.getItem("email");
 
@@ -87,7 +86,14 @@ export default function Navbar() {
             <>
               <li className="link welcome-user">
                 {`Welcome, ${getUserName()}`}
-                <ProfileCard />
+                <ul className='dropdown-menu'>
+                  <li>
+                    <Link to='profile'>Your Profile</Link>
+                  </li>
+                  <li>
+                    <Link to='report'>Your Reports</Link>
+                  </li>
+                </ul>
               </li>
               <li className="link">
                 <button type="button" className="btn2" onClick={handleLogout}>
