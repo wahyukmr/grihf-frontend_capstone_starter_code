@@ -1,63 +1,158 @@
-import Popup from "reactjs-popup";
-import {Button} from 'react-bootstrap';
-import React, { useState } from 'react';
+// import Popup from "reactjs-popup";
+// import { Button } from 'react-bootstrap';
+// import React, { useState } from 'react';
+// import './GiveReviews.css';
 
-function GiveReviews() {
+// function GiveReviews({onHandleReview}) {
+//   const [showForm, setShowForm] = useState(false);
+//   const [showWarning, setShowWarning] = useState(false);
+//   const [formData, setFormData] = useState({ name: '', review: '', rating: 0 });
+
+//   const handleButtonClick = () => {
+//     setShowForm(true);
+//   };
+
+//   const handleChange = (e) => {
+//     // Perbarui formData sesuai dengan perubahan input
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     onHandleReview(formData)
+
+//     // Perbarui formData menjadi nilai awal setelah submit
+//     setFormData({ name: '', review: '', rating: 0 });
+//     setShowForm(false)
+
+//     // if (formData.name && formData.review && formData.rating > 0) {
+//     if (formData.name && formData.review) {
+//       setShowWarning(false);
+//     } else {
+//       setShowWarning(true);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Button variant="primary" size='sm' onClick={handleButtonClick} disabled >Click Here</Button>
+
+//       <Popup
+//         style={{ backgroundColor: "#FFFFFF" }}
+//         modal
+//         open={showForm}
+//         onClose={() => setShowForm(false)}
+//       >
+//         <form onSubmit={handleSubmit}>
+//           <h2 style={{textAlign: "center", marginBottom: "20px"}}>Give Your Review</h2>
+//           {showWarning && <p className="warning">Please fill out all fields.</p>}
+//           <div>
+//             <label htmlFor="name">Name:</label>
+//             <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+//           </div>
+//           <div>
+//             <label htmlFor="review">Review:</label>
+//             <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
+//           </div>
+//           {/* Tambahkan input untuk rating */}
+//           {/* <div>
+//             <label htmlFor="rating">Rating:</label>
+//             <input type="number" maxLength="5" minLength="1" id="rating" name="rating" value={formData.rating} onChange={handleChange} />
+//           </div> */}
+//           <Button style={{marginTop: "20px"}} variant="primary" type="submit">Submit</Button>
+//         </form>
+//       </Popup>
+//     </div>
+//   );
+// }
+
+// export default GiveReviews;
+
+import Popup from "reactjs-popup";
+import { Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import Star from './Star'; // Import komponen bintang
+import './GiveReviews.css';
+
+function ReviewForm() {
   const [showForm, setShowForm] = useState(false);
-  const [submittedMessage, setSubmittedMessage] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const [formData, setFormData] = useState({
-        name: '',
-        review: '',
-        rating: 0
-      });
+  const [formData, setFormData] = useState({ name: '', review: '', rating: 0 });
 
   const handleButtonClick = () => {
     setShowForm(true);
   };
 
   const handleChange = (e) => {
-    setFormData(e.target.value);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmittedMessage(formData);
-    setFormData('');
-        if (formData.name && formData.review && formData.rating > 0) {
-          setShowWarning(false);
-        } else {
-          setShowWarning(true);
-        }
+
+    console.log(formData);
+
+    setFormData({ name: '', review: '', rating: 0 });
+
+    if (formData.name && formData.review && formData.rating > 0) {
+      setShowWarning(false);
+    } else {
+      setShowWarning(true);
+    }
   };
+
+  const handleStarClick = (starIndex) => {
+    // Mengatur nilai rating saat pengguna mengklik bintang
+    setFormData({ ...formData, rating: starIndex + 1 });
+  };
+
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <Star
+          key={i}
+          selected={i < formData.rating}
+          onClick={() => handleStarClick(i)}
+        />
+      );
+    }
+    return stars;
+  };
+
   return (
     <div>
-      <h2>Form with Message</h2>
-      {!showForm ? (
-        <button onClick={handleButtonClick}>Open Form</button>
-      ) : (
+      <Button variant="primary" size='sm' onClick={handleButtonClick}>Click Here</Button>
+
+      <Popup
+        style={{ backgroundColor: "#FFFFFF" }}
+        modal
+        open={showForm}
+        onClose={() => setShowForm(false)}
+      >
         <form onSubmit={handleSubmit}>
-          <h2>Give Your Feedback</h2>
-               {showWarning && <p className="warning">Please fill out all fields.</p>}
-                <div>
-                   <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
-             </div>
-                <div>
-                 <label htmlFor="review">Review:</label>
-                  <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
-                 </div>
-                 <button type="submit">Submit</button>
-               </form>
-      )}
-      {submittedMessage && (
-        <div>
-          <h3>Submitted Message:</h3>
-          <p>{submittedMessage}</p>
-        </div>
-      )}
+          <h2>Give Your Review</h2>
+          {showWarning && <p className="warning">Please fill out all fields.</p>}
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="review">Review:</label>
+            <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Rating:</label>
+            {renderStars()}
+          </div>
+          <Button variant="primary" type="submit">Submit</Button>
+        </form>
+      </Popup>
     </div>
   );
 }
 
-export default GiveReviews;
+export default ReviewForm;
