@@ -6,6 +6,7 @@ import Layout from "./Components/LandingPage/LandingPage";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Sign_Up/Sign_Up";
 import Root from "./Page/Root";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   const routers = createBrowserRouter([
